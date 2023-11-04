@@ -32,12 +32,28 @@ class MiscController < ApplicationController
       date = Date.new(dob_array[0].to_i, dob_array[1].to_i, dob_array[2].to_i)
       @dob_format = date.strftime("%B %d, %Y")
 
-
-
       render({ :template => "misc_templates/eldest"})
 
     elsif @id == "youngest"
       directors = Director.where.not({ :dob => nil })
+      array = Array.new
+      dob_hash = Hash.new
+      
+      directors.each do |a_director|
+        array.append(a_director.dob)
+        dob_hash[a_director.dob] = {:id => a_director.id, :name => a_director.name}
+      end
+
+      @id_number = dob_hash[array.max][:id]
+      @name = dob_hash[array.max][:name]
+      dob = array.max
+
+      dob_str = dob.to_s
+      dob_array = dob_str.split('-')
+
+      date = Date.new(dob_array[0].to_i, dob_array[1].to_i, dob_array[2].to_i)
+      @dob_format = date.strftime("%B %d, %Y")
+
       render({ :template => "misc_templates/youngest"})
 
     else
