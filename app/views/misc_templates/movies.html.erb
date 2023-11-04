@@ -1,0 +1,64 @@
+<h1>
+  List of all movies
+</h1>
+
+<hr>
+
+<table border="1">
+  <tbody><tr>
+    <th>
+      ID
+    </th>
+
+    <th>
+      Image
+    </th>
+
+    <th>
+      Title
+    </th>
+
+    <th>
+      Year
+    </th>
+
+    <th>
+      Director
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+<% @movies.each do |a_movie| %>
+  <tr>
+    <td>
+      <%= a_movie.id %>
+    </td>
+
+    <td>
+      <img src=<%= a_movie.image.to_s %> style="width:250px;">
+    </td>
+
+    <td>
+      <%= a_movie.title %>
+    </td>
+
+    <td>
+      <%= a_movie.year %>
+    </td>
+
+    <td>
+      
+
+      <%= @move_hash[a_movie.id.to_i] %>
+    </td>
+
+    <td>
+      <a href= <%= "/movies/" + a_movie.id.to_s %> >
+        Show details
+      </a>
+    </td>
+  </tr>
+  <% end %>
+</tbody></table>
